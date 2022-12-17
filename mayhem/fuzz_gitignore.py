@@ -3,6 +3,7 @@
 import atheris
 import sys
 import fuzz_helpers
+import random
 
 with atheris.instrument_imports(include=["gitignore_parser"]):
     from gitignore_parser import parse_gitignore
@@ -13,9 +14,10 @@ def TestOneInput(data):
     try:
         with fdp.ConsumeTemporaryFile(".gitignore", all_data=False, as_bytes=False) as name:
             matches = parse_gitignore(name)
-            for _ in range(fdp.ConsumeIntInRange(0, 100)):
-                matches('/tmp/' + fdp.ConsumeRandomString())
-    except ValueError:
+            matches('/tmp/' + fdp.ConsumeRandomString())
+    except (ValueError, IndexError) as e:
+        if random.random() > 0.99:
+            raise e
         return -1
 
 def main():
