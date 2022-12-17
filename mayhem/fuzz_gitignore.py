@@ -14,9 +14,10 @@ def TestOneInput(data):
     try:
         with fdp.ConsumeTemporaryFile(".gitignore", all_data=False, as_bytes=False) as name:
             matches = parse_gitignore(name)
-            matches('/tmp/' + fdp.ConsumeRandomString())
+            for _ in range(fdp.ConsumeIntInRange(0, 10)):
+                matches('/tmp/' + fdp.ConsumeRandomString())
     except (ValueError, IndexError) as e:
-        if random.random() > 0.99:
+        if random.random() > 0.999:
             raise e
         return -1
 
