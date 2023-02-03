@@ -1,0 +1,9 @@
+project: gitignore-parser
+target: gitignore-parse
+testsuite:
+    - file://mayhem/testsuite
+
+cmds:
+  - cmd: /src/mayhem/fuzz_gitignore.py
+    libfuzzer: true
+    timeout: 12
