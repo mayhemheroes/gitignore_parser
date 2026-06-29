@@ -1,0 +1,15 @@
+# Mayhem target: gitignore_parser (.gitignore matcher) — Atheris/libFuzzer harness.
+# The cmd binary is the compiled ELF launcher that drives mayhem/fuzz_gitignore.py; Atheris
+# instruments the gitignore_parser module so the run records coverage (edges).
+# project/target names preserved from the fork's original Mayhem target (parity).
+project: gitignore-parser
+target: gitignore-parse
+
+cmds:
+  - cmd: /mayhem/gitignore_fuzzer
+    libfuzzer: true
+
+# Seed corpus of representative .gitignore files (file:// URIs, per the Mayhemfile schema).
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/gitignore-parse/testsuite

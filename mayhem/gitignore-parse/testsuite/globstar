@@ -1,0 +1,4 @@
+foo/**/Bar
+src/**/*.tmp
+**/node_modules
+logs/**
